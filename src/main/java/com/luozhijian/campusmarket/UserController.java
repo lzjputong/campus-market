@@ -19,16 +19,22 @@ public class UserController {
         this.jdbcTemplate = jdbcTemplate;
     }
     @GetMapping("/users/count")
-    public Integer count() {
-        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM `user`",Integer.class);
+    public Result <Integer>count() {
+        Integer total = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM `user`", Integer.class);
+        return Result.ok(total);
     }
 
     @GetMapping("/users")
-    public List<Map<String, Object>> list() {
-        return jdbcTemplate.queryForList("SELECT id, nickname, school_no, credit FROM `user`");
+    public Result<List<Map<String, Object>>> list() {
+        List<Map<String, Object>> users = jdbcTemplate.queryForList(
+                "SELECT id, nickname, school_no, credit FROM `user`");
+        return Result.ok(users);
     }
     @PostMapping("/users")
-    public int add(@RequestParam String nickname, @RequestParam String schoolNo) {
-        return jdbcTemplate.update("INSERT INTO `user` (nickname, school_no) VALUES (?, ?)",nickname, schoolNo);
+    public  Result<Integer> add(@RequestParam String nickname, @RequestParam String schoolNo) {
+        int rows = jdbcTemplate.update(
+                "INSERT INTO `user` (nickname, school_no) VALUES (?, ?)",
+                nickname, schoolNo);
+        return Result.ok(rows);
     }
 }
