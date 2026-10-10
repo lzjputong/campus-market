@@ -1,0 +1,8 @@
+### 查询用户总数（先跑这个，记住当前值）
+GET http://localhost:8080/users/count
+
+### 新增一个用户
+POST http://localhost:8080/users?nickname=zhaoliu&schoolNo=2023004
+
+### 查询所有用户
+GET http://localhost:8080/users
