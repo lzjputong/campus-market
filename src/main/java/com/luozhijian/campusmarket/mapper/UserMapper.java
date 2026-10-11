@@ -54,7 +54,11 @@ public class UserMapper {
                 "INSERT INTO `user` (nickname, school_no) VALUES (?, ?)",
                 nickname, schoolNo);
     }
-
+    public int update(Long id, String nickname, Integer credit) {
+        return jdbcTemplate.update(
+                "UPDATE `user` SET nickname = ?, credit = ? WHERE id = ?",nickname,credit,id
+                );
+    }
 
     public User findById(long id) {
         return jdbcTemplate.queryForObject(

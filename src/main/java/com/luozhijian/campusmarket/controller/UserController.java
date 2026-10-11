@@ -34,4 +34,8 @@ public class UserController {
     public Result<Integer> add(@RequestParam String nickname, @RequestParam String schoolNo) {
         return Result.ok(userService.create(nickname, schoolNo));
     }
+    @PutMapping("/users/{id}")
+    public Result<Integer>update(@PathVariable long id,@RequestParam String nickname,@RequestParam Integer credit){
+        return Result.ok(userService.update(id, nickname, credit));
+    }
 }

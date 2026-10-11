@@ -3,7 +3,7 @@ package com.luozhijian.campusmarket.service;
 import com.luozhijian.campusmarket.entity.User;
 import com.luozhijian.campusmarket.mapper.UserMapper;
 import org.springframework.stereotype.Service;
-
+import com.luozhijian.campusmarket.exception.BusinessException;
 import java.util.List;
 
 /**
@@ -31,6 +31,14 @@ public class UserService {
 
     public int count() {
         return userMapper.count();
+    }
+    /** 修改用户，返回受影响行数 */
+    public int update(Long id, String nickname, Integer credit) {
+        int rows = userMapper.update(id, nickname, credit);
+        if (rows == 0) {
+            throw new BusinessException(4004, "用户不存在");
+        }
+        return rows;
     }
 
     public int create(String nickname, String schoolNo) {

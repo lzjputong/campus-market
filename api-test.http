@@ -6,3 +6,8 @@ POST http://localhost:8080/users?nickname=zhaoliu&schoolNo=2023004
 
 ### 查询所有用户
 GET http://localhost:8080/users
+### 修改存在的用户
+PUT http://localhost:8080/users/3?nickname=xiaowang&credit=95
+
+### 修改不存在的用户
+PUT http://localhost:8080/users/9999?nickname=abc&credit=50
