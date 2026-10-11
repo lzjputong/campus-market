@@ -1,4 +1,4 @@
-package com.luozhijian.campusmarket;
+package com.luozhijian.campusmarket.common;
 
 public class Result<T> {
 

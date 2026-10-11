@@ -1,4 +1,4 @@
-package com.luozhijian.campusmarket;
+package com.luozhijian.campusmarket.exception;
 
 public class BusinessException extends RuntimeException {
 

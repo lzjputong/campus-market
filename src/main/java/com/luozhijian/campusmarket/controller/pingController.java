@@ -1,4 +1,4 @@
-package com.luozhijian.campusmarket;
+package com.luozhijian.campusmarket.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
