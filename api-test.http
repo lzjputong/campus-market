@@ -11,3 +11,8 @@ PUT http://localhost:8080/users/3?nickname=xiaowang&credit=95
 
 ### 修改不存在的用户
 PUT http://localhost:8080/users/9999?nickname=abc&credit=50
+### 删除用户
+DELETE http://localhost:8080/users/4
+
+### 查被删的用户
+GET http://localhost:8080/users/4

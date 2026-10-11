@@ -58,6 +58,9 @@ public class UserMapper {
         return jdbcTemplate.update(
                 "UPDATE `user` SET nickname = ?, credit = ? WHERE id = ?",nickname,credit,id
                 );
+    }public int deleteById(Long id) {
+        return jdbcTemplate.update(
+                "DELETE FROM `user` WHERE id = ?",id);
     }
 
     public User findById(long id) {

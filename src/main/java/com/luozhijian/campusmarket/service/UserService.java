@@ -40,6 +40,13 @@ public class UserService {
         }
         return rows;
     }
+    public int delete(long id) {
+        int rows = userMapper.deleteById(id);
+        if (rows == 0) {
+            throw new BusinessException(4004, "用户不存在");
+        }
+        return rows;
+    }
 
     public int create(String nickname, String schoolNo) {
         return userMapper.insert(nickname, schoolNo);
