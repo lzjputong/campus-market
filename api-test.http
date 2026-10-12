@@ -29,3 +29,17 @@ Content-Type: application/json
   "tradePlace": "3号楼",
   "conditionLevel": 8
 }
+### 列表（全部）
+GET http://localhost:8080/items
+
+### 列表（只看分类 2）
+GET http://localhost:8080/items?categoryId=2
+
+### 列表（不存在的分类 99）
+GET http://localhost:8080/items?categoryId=99
+
+### 总数（全部）
+GET http://localhost:8080/items/count
+
+### 总数（分类 2）
+GET http://localhost:8080/items/count?categoryId=2

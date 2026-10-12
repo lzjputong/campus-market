@@ -27,12 +27,12 @@ public class ItemController {
     }
 
     @GetMapping("/items")
-    public Result<List<Item>> list(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size) {
-        return Result.ok(itemService.listOnSale(page, size));
+    public Result<List<Item>> list(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size,@RequestParam(required = false) Integer categoryId) {
+        return Result.ok(itemService.listOnSale(page, size,categoryId));
     }
 
     @GetMapping("/items/count")
-    public Result<Integer> count() {
-        return Result.ok(itemService.countOnSale());
+    public Result<Integer> count(@RequestParam(required = false) Integer categoryId) {
+        return Result.ok(itemService.countOnSale(categoryId));
     }
 }

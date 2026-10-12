@@ -26,13 +26,13 @@ public class ItemService {
     }
 
     /** 在售商品列表（分页）：收"页码"，换算成"跳过几条" */
-    public List<Item> listOnSale(int page, int size) {
+    public List<Item> listOnSale(Integer categoryId,int page, int size) {
         int offset = (page - 1) * size;
-        return itemMapper.findOnSale(offset, size);
+        return itemMapper.findOnSale(categoryId,offset, size);
     }
 
     /** 在售商品总数 */
-    public int countOnSale() {
-        return itemMapper.countOnSale();
+    public int countOnSale(Integer categoryId) {
+        return itemMapper.countOnSale(categoryId);
     }
 }

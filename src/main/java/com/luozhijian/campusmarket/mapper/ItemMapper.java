@@ -4,7 +4,7 @@ import com.luozhijian.campusmarket.entity.Item;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -61,18 +61,37 @@ public class ItemMapper {
     }
 
     /** 在售商品列表（分页） */
-    public List<Item> findOnSale(int offset, int size) {
-        return jdbcTemplate.query(
-                "SELECT * FROM `item` WHERE status = 0 ORDER BY created_at DESC LIMIT ? OFFSET ?",
-                ROW_MAPPER,
-                size,
-                offset);
+    /** 在售商品列表（分页）：categoryId 为 null 表示不筛分类 */
+    public List<Item> findOnSale(Integer categoryId, int offset, int size) {
+        // 第 1 步：固定前半段
+        StringBuilder sql = new StringBuilder("SELECT * FROM `item` WHERE status = 0");
+        // 第 2 步：空的参数列表
+        List<Object> params = new ArrayList<>();
+
+        // 第 3 步：有分类才拼进去
+        if (categoryId != null) {
+            sql.append(" AND category_id = ?");
+            params.add(categoryId);
+        }
+
+        // 第 4 步：固定后半段
+        sql.append(" ORDER BY created_at DESC LIMIT ? OFFSET ?");
+        params.add(size);
+        params.add(offset);
+
+        // 第 5 步：执行
+        return jdbcTemplate.query(sql.toString(), ROW_MAPPER, params.toArray());
     }
 
     /** 在售商品总数 */
-    public int countOnSale() {
-        Integer n = jdbcTemplate.queryForObject(
-                "SELECT COUNT(*) FROM `item` WHERE status = 0", Integer.class);
-        return n == null ? 0 : n;
+    public int countOnSale(Integer categoryId) {
+        StringBuilder sql=new StringBuilder("SELECT COUNT(*) FROM `item` WHERE status = 0");
+        List<Object> params = new ArrayList<>();
+        if (categoryId != null){
+            sql.append(" AND category_id = ?");
+            params.add(categoryId);
+
+        }
+        return jdbcTemplate.queryForObject(sql.toString(), Integer.class, params.toArray());
     }
 }
