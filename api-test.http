@@ -16,3 +16,16 @@ DELETE http://localhost:8080/users/4
 
 ### 查被删的用户
 GET http://localhost:8080/users/4
+### 发布商品
+POST http://localhost:8080/items
+Content-Type: application/json
+
+{
+  "sellerId": 1,
+  "title": "二手自行车",
+  "description": "骑了一年，有轻微划痕",
+  "price": 199.00,
+  "categoryId": 2,
+  "tradePlace": "3号楼",
+  "conditionLevel": 8
+}
