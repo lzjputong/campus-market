@@ -1,6 +1,7 @@
 package com.luozhijian.campusmarket.service;
 
 import com.luozhijian.campusmarket.entity.Item;
+import com.luozhijian.campusmarket.exception.BusinessException;
 import com.luozhijian.campusmarket.mapper.ItemMapper;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,16 @@ public class ItemService {
     public List<Item> listOnSale(Integer categoryId,int page, int size) {
         int offset = (page - 1) * size;
         return itemMapper.findOnSale(categoryId,offset, size);
+    }
+    public Integer updateStatus(Long id, Integer status) {
+        if (status == null || status < 0 || status > 3) {
+            throw new BusinessException(4002, "状态值不合法");
+        }
+        int rows = itemMapper.updateStatus(id, status);
+        if ( rows== 0) {
+            throw new BusinessException(4004, "商品不存在");
+        }
+        return rows;
     }
 
     /** 在售商品总数 */

@@ -35,4 +35,8 @@ public class ItemController {
     public Result<Integer> count(@RequestParam(required = false) Integer categoryId) {
         return Result.ok(itemService.countOnSale(categoryId));
     }
+    @PutMapping("/items/{id}/status")
+    public Result<Integer> put(@PathVariable Long id,@RequestParam Integer status){
+        return Result.ok(itemService.updateStatus(id, status));
+    }
 }

@@ -82,6 +82,11 @@ public class ItemMapper {
         // 第 5 步：执行
         return jdbcTemplate.query(sql.toString(), ROW_MAPPER, params.toArray());
     }
+    public int updateStatus(Long id,Integer status) {
+        return jdbcTemplate.update("UPDATE `item` SET status = ? WHERE id = ?",
+                status,
+                id);
+    }
 
     /** 在售商品总数 */
     public int countOnSale(Integer categoryId) {

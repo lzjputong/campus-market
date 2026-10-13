@@ -43,3 +43,17 @@ GET http://localhost:8080/items/count
 
 ### 总数（分类 2）
 GET http://localhost:8080/items/count?categoryId=2
+### 下架商品 1
+PUT http://localhost:8080/items/1/status?status=3
+
+### 看列表（应该空了）
+GET http://localhost:8080/items
+
+### 上架回来
+PUT http://localhost:8080/items/1/status?status=0
+
+### 再看列表（又回来了）
+GET http://localhost:8080/items
+
+### 传个非法值
+PUT http://localhost:8080/items/1/status?status=99
