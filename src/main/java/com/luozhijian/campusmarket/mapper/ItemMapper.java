@@ -59,6 +59,10 @@ public class ItemMapper {
                 ROW_MAPPER,
                 id);
     }
+    public List<Item> findBySeller(Long sellerId,  int size,int offset){
+        return jdbcTemplate.query("SELECT * FROM `item` WHERE seller_id = ? ORDER BY created_at DESC LIMIT ? OFFSET ?",ROW_MAPPER,
+                sellerId,size,offset);
+    }
 
     /** 在售商品列表（分页） */
     /** 在售商品列表（分页）：categoryId 为 null 表示不筛分类 */
