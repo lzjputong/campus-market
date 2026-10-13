@@ -57,3 +57,11 @@ GET http://localhost:8080/items
 
 ### 传个非法值
 PUT http://localhost:8080/items/1/status?status=99
+###
+PUT  http://localhost:8080/items/1/status?status=3
+###
+GET  http://localhost:8080/items
+###
+GET  http://localhost:8080/items/mine?sellerId=1
+###
+GET  http://localhost:8080/items/mine?sellerId=999

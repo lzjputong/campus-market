@@ -3,7 +3,6 @@ package com.luozhijian.campusmarket.controller;
 import com.luozhijian.campusmarket.common.Result;
 import com.luozhijian.campusmarket.entity.Item;
 import com.luozhijian.campusmarket.service.ItemService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,7 +27,7 @@ public class ItemController {
 
     @GetMapping("/items")
     public Result<List<Item>> list(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size,@RequestParam(required = false) Integer categoryId) {
-        return Result.ok(itemService.listOnSale(page, size,categoryId));
+        return Result.ok(itemService.listOnSale(categoryId, page, size));
     }
 
     @GetMapping("/items/count")
@@ -36,7 +35,15 @@ public class ItemController {
         return Result.ok(itemService.countOnSale(categoryId));
     }
     @PutMapping("/items/{id}/status")
-    public Result<Integer> put(@PathVariable Long id,@RequestParam Integer status){
+    public Result<Integer> updateStatus(@PathVariable Long id, @RequestParam Integer status){
         return Result.ok(itemService.updateStatus(id, status));
+    }
+    @GetMapping("/items/mine")
+    public Result<List<Item>> listBySeller(@RequestParam Long sellerId, @RequestParam(defaultValue="1") int page, @RequestParam(defaultValue="10") int size){
+        return Result.ok(itemService.listBySeller(sellerId, page, size));
+    }
+    @GetMapping("/items/mine/count")
+    public Result<Integer> countBySeller(@RequestParam Long sellerId){
+        return Result.ok(itemService.countBySeller(sellerId));
     }
 }

@@ -59,12 +59,19 @@ public class ItemMapper {
                 ROW_MAPPER,
                 id);
     }
-    public List<Item> findBySeller(Long sellerId,  int size,int offset){
+    /** 某个卖家发布的商品（分页）：offset=跳过几条，size=每页几条 */
+    public List<Item> findBySeller(Long sellerId, int offset, int size) {
         return jdbcTemplate.query("SELECT * FROM `item` WHERE seller_id = ? ORDER BY created_at DESC LIMIT ? OFFSET ?",ROW_MAPPER,
                 sellerId,size,offset);
     }
-
-    /** 在售商品列表（分页） */
+    /** 某个卖家发布的商品总数 */
+    public int countBySeller(Long sellerId) {
+        Integer n = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM `item` WHERE seller_id = ?",
+                Integer.class,
+                sellerId);
+        return n == null ? 0 : n;
+    }
     /** 在售商品列表（分页）：categoryId 为 null 表示不筛分类 */
     public List<Item> findOnSale(Integer categoryId, int offset, int size) {
         // 第 1 步：固定前半段
