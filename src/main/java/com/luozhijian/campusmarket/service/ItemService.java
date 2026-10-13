@@ -27,6 +27,7 @@ public class ItemService {
      * 按 id 查商品
      */
     public Item getById(Long id) {
+        itemMapper.increaseViewCount(id);
         return itemMapper.findById(id);
     }
 

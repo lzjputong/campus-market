@@ -110,4 +110,7 @@ public class ItemMapper {
         }
         return jdbcTemplate.queryForObject(sql.toString(), Integer.class, params.toArray());
     }
+    public int 	increaseViewCount(Long id){
+        return jdbcTemplate.update("UPDATE `item` SET view_count = view_count + 1 WHERE id = ?",id);
+    }
 }
