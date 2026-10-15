@@ -65,4 +65,12 @@ public class ItemService {
     public int countOnSale(Integer categoryId) {
         return itemMapper.countOnSale(categoryId);
     }
+    /** 修改商品信息，返回受影响行数 */
+    public int update(Item item) {
+        int rows = itemMapper.update(item);
+        if (rows == 0) {
+            throw new BusinessException(4004, "商品不存在");
+        }
+        return rows;
+    }
 }

@@ -113,4 +113,19 @@ public class ItemMapper {
     public int 	increaseViewCount(Long id){
         return jdbcTemplate.update("UPDATE `item` SET view_count = view_count + 1 WHERE id = ?",id);
     }
+    /** 修改商品信息，返回受影响行数 */
+    public int update(Item item) {
+        return jdbcTemplate.update(
+                "UPDATE `item` SET title = ?, description = ?, price = ?, "
+                        + "category_id = ?, trade_place = ?, condition_level = ? "
+                        + "WHERE id = ?",
+                item.getTitle(),
+                item.getDescription(),
+                item.getPrice(),
+                item.getCategoryId(),
+                item.getTradePlace(),
+                item.getConditionLevel(),
+                item.getId());
+    }
+
 }

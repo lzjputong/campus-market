@@ -46,4 +46,9 @@ public class ItemController {
     public Result<Integer> countBySeller(@RequestParam Long sellerId){
         return Result.ok(itemService.countBySeller(sellerId));
     }
+    @PutMapping("/items/{id}")
+    public Result<Integer> update(@PathVariable Long id , @RequestBody Item item){
+        item.setId(id);
+        return Result.ok(itemService.update(item));
+    }
 }

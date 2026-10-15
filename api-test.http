@@ -65,3 +65,18 @@ GET  http://localhost:8080/items/2
 GET  http://localhost:8080/items/mine?sellerId=1
 ###
 GET  http://localhost:8080/items/mine?sellerId=999
+### ① 改商品 2
+PUT http://localhost:8080/items/2
+Content-Type: application/json
+
+{ "title": "二手自行车（降价）", "description": "已换新刹车",
+  "price": 150.00, "categoryId": 2, "tradePlace": "图书馆门口", "conditionLevel": 7 }
+
+### ② 查详情确认
+GET http://localhost:8080/items/2
+
+### ③ 改不存在的商品
+PUT http://localhost:8080/items/9999
+Content-Type: application/json
+
+{ "title": "不存在", "price": 1.00, "categoryId": 1, "conditionLevel": 5 }
