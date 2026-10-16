@@ -17,7 +17,7 @@ public class ItemMapper {
     }
 
     /** 结果集 → Item 对象的映射规则 */
-    private static final RowMapper<Item> ROW_MAPPER = (rs, rowNum) -> {
+     static final RowMapper<Item> ROW_MAPPER = (rs, rowNum) -> {
         Item item = new Item();
         item.setId(rs.getLong("id"));
         item.setSellerId(rs.getLong("seller_id"));

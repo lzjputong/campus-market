@@ -80,3 +80,23 @@ PUT http://localhost:8080/items/9999
 Content-Type: application/json
 
 { "title": "不存在", "price": 1.00, "categoryId": 1, "conditionLevel": 5 }
+### ① 收藏商品 2（用户 1）
+POST http://localhost:8080/favorites/2?userId=1
+
+### ② 重复收藏同一个（应该报 4001 / 409）
+POST http://localhost:8080/favorites/2?userId=1
+
+### ③ 我的收藏列表 ← ★ 重点
+GET http://localhost:8080/favorites?userId=1
+
+### ④ 收藏总数
+GET http://localhost:8080/favorites/count?userId=1
+
+### ⑤ 取消收藏
+DELETE http://localhost:8080/favorites/2?userId=1
+
+### ⑥ 取消一个没收藏过的（应该报 4004）
+DELETE http://localhost:8080/favorites/2?userId=1
+
+### ⑦ 别人的收藏（应该空）
+GET http://localhost:8080/favorites?userId=999

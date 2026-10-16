@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Result<Void>> handleDuplicateKey(DuplicateKeyException e) {
         log.warn("唯一约束冲突: {}", e.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(Result.fail(4001, "该学号已被注册"));
+                .body(Result.fail(4001, "数据已存在，请勿重复提交"));
     }
 
     /** 自定义业务异常 */
