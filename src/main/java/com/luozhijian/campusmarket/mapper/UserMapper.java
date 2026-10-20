@@ -69,4 +69,16 @@ public class UserMapper {
                 ROW_MAPPER,
                 id);
     }
+    public User findBySchoolNo(String schoolNo) {
+        List<User> list = jdbcTemplate.query(
+                "SELECT id, nickname, school_no, credit, created_at FROM `user` WHERE school_no = ?",
+                ROW_MAPPER,
+                schoolNo);
+        return list.isEmpty() ? null : list.get(0);
+    }
+    public int insertUser(String nickname, String schoolNo, String password) {
+        return jdbcTemplate.update(
+                "INSERT INTO `user` (nickname, school_no, password) VALUES (?, ?, ?)",
+                nickname, schoolNo, password);           // 3 个参数，干净
+    }
 }

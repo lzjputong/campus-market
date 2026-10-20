@@ -100,3 +100,14 @@ DELETE http://localhost:8080/favorites/2?userId=1
 
 ### ⑦ 别人的收藏（应该空）
 GET http://localhost:8080/favorites?userId=999
+### ① 注册新用户
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+
+{ "nickname": "测试用户", "schoolNo": "2025001", "password": "123456" }
+
+### ② 同一学号再注册
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+
+{ "nickname": "别人", "schoolNo": "2025001", "password": "abc123" }
