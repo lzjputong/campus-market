@@ -3,6 +3,7 @@ package com.luozhijian.campusmarket.service;
 import com.luozhijian.campusmarket.entity.Item;
 import com.luozhijian.campusmarket.exception.BusinessException;
 import com.luozhijian.campusmarket.mapper.FavoriteMapper;
+import com.luozhijian.campusmarket.mapper.ItemMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,12 +11,14 @@ import java.util.List;
 @Service
 public class FavoriteService {
     private final FavoriteMapper favoriteMapper;      // ✅ 声明时【不给值】
-
-    public FavoriteService(FavoriteMapper favoriteMapper) {
+    private final ItemMapper itemMapper;
+    public FavoriteService(FavoriteMapper favoriteMapper,ItemMapper itemMapper) {
         this.favoriteMapper = favoriteMapper;
+        this.itemMapper= itemMapper;
     }
 
     public int add(Long userId, Long itemId){
+        itemMapper.findById(itemId);
         return favoriteMapper.insert(userId, itemId);
     }
     public int remove(Long userId, Long itemId){
