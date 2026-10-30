@@ -35,32 +35,41 @@ public class UserMapper {
         return u;
     };
 
-    /** 查询所有用户 */
+    /**
+     * 查询所有用户
+     */
     public List<User> findAll() {
         return jdbcTemplate.query(
                 "SELECT id, nickname, school_no, credit, created_at FROM `user`",
                 ROW_MAPPER);
     }
 
-    /** 统计用户总数 */
+    /**
+     * 统计用户总数
+     */
     public int count() {
         Integer n = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM `user`", Integer.class);
         return n == null ? 0 : n;
     }
 
-    /** 新增用户，返回受影响行数 */
+    /**
+     * 新增用户，返回受影响行数
+     */
     public int insert(String nickname, String schoolNo) {
         return jdbcTemplate.update(
                 "INSERT INTO `user` (nickname, school_no) VALUES (?, ?)",
                 nickname, schoolNo);
     }
+
     public int update(Long id, String nickname, Integer credit) {
         return jdbcTemplate.update(
-                "UPDATE `user` SET nickname = ?, credit = ? WHERE id = ?",nickname,credit,id
-                );
-    }public int deleteById(Long id) {
+                "UPDATE `user` SET nickname = ?, credit = ? WHERE id = ?", nickname, credit, id
+        );
+    }
+
+    public int deleteById(Long id) {
         return jdbcTemplate.update(
-                "DELETE FROM `user` WHERE id = ?",id);
+                "DELETE FROM `user` WHERE id = ?", id);
     }
 
     public User findById(long id) {
@@ -69,6 +78,7 @@ public class UserMapper {
                 ROW_MAPPER,
                 id);
     }
+
     public User findBySchoolNo(String schoolNo) {
         List<User> list = jdbcTemplate.query(
                 "SELECT id, nickname, school_no, credit, created_at FROM `user` WHERE school_no = ?",
@@ -76,9 +86,18 @@ public class UserMapper {
                 schoolNo);
         return list.isEmpty() ? null : list.get(0);
     }
+
     public int insertUser(String nickname, String schoolNo, String password) {
         return jdbcTemplate.update(
                 "INSERT INTO `user` (nickname, school_no, password) VALUES (?, ?, ?)",
                 nickname, schoolNo, password);           // 3 个参数，干净
+    }
+
+    public String findPasswordBySchoolNo(String schoolNo) {
+        List<String> list = jdbcTemplate.query(
+                "SELECT password FROM `user` WHERE school_no = ?",
+                (rs, rowNum) -> rs.getString("password"),
+                schoolNo);
+        return list.isEmpty() ? null : list.get(0);
     }
 }

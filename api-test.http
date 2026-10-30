@@ -111,3 +111,14 @@ POST http://localhost:8080/auth/register
 Content-Type: application/json
 
 { "nickname": "别人", "schoolNo": "2025001", "password": "abc123" }
+### ① 正确密码
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{ "schoolNo": "2025001", "password": "123456" }
+
+### ② 错误密码
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{ "schoolNo": "2025001", "password": "wrong" }
