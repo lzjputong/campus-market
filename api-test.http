@@ -122,3 +122,19 @@ POST http://localhost:8080/auth/login
 Content-Type: application/json
 
 { "schoolNo": "2025001", "password": "wrong" }
+### ① 不带 token 访问商品列表
+GET http://localhost:8080/items
+
+### 登录拿 token（并自动存进变量）
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{ "schoolNo": "2025001", "password": "123456" }
+
+> {%
+    client.global.set("token", response.body.data.token);
+%}
+
+### 带上 token 访问
+GET http://localhost:8080/items
+Authorization: Bearer {{token}}
