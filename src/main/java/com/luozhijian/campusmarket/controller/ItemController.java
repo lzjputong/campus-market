@@ -16,7 +16,8 @@ public class ItemController {
     }
 
     @PostMapping("/items")
-    public Result<Integer> publish(@RequestBody Item item) {
+    public Result<Integer> publish(@RequestBody Item item,@RequestAttribute("userId") Long userId) {
+        item.setSellerId(userId);
         return Result.ok(itemService.publish(item));
     }
 
@@ -39,8 +40,8 @@ public class ItemController {
         return Result.ok(itemService.updateStatus(id, status));
     }
     @GetMapping("/items/mine")
-    public Result<List<Item>> listBySeller(@RequestParam Long sellerId, @RequestParam(defaultValue="1") int page, @RequestParam(defaultValue="10") int size){
-        return Result.ok(itemService.listBySeller(sellerId, page, size));
+    public Result<List<Item>> listBySeller(@RequestAttribute("userId") Long userId, @RequestParam(defaultValue="1") int page, @RequestParam(defaultValue="10") int size){
+        return Result.ok(itemService.listBySeller(userId, page, size));
     }
     @GetMapping("/items/mine/count")
     public Result<Integer> countBySeller(@RequestParam Long sellerId){

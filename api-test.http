@@ -138,3 +138,6 @@ Content-Type: application/json
 ### 带上 token 访问
 GET http://localhost:8080/items
 Authorization: Bearer {{token}}
+###
+GET http://localhost:8080/items/mine?page=1&size=10
+Authorization: Bearer {{token}}

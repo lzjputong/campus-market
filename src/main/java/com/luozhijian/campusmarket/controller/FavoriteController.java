@@ -15,19 +15,19 @@ public class FavoriteController {
         this.favoriteService=favoriteService;
     }
     @PostMapping("/favorites/{itemId}")
-    public Result<Integer> add(@PathVariable Long itemId ,@RequestParam Long userId){
+    public Result<Integer> add(@PathVariable Long itemId ,@RequestAttribute("userId") Long userId){
         return Result.ok(favoriteService.add(userId, itemId));
     }
     @DeleteMapping("/favorites/{itemId}")
-    public Result<Integer> cancel(@PathVariable Long itemId,@RequestParam Long userId){
+    public Result<Integer> cancel(@PathVariable Long itemId,@RequestAttribute("userId")Long userId){
         return Result.ok(favoriteService.remove(userId,itemId));
     }
     @GetMapping("/favorites")
-    public Result<List<Item>> listItems(@RequestParam Long userId, @RequestParam(defaultValue="1") int page, @RequestParam(defaultValue="10") int size){
+    public Result<List<Item>> listItems(@RequestAttribute("userId") Long userId, @RequestParam(defaultValue="1") int page, @RequestParam(defaultValue="10") int size){
         return Result.ok(favoriteService.listItems(userId,page,size));
     }
     @GetMapping("/favorites/count")
-    public Result<Integer> count(@RequestParam Long userId){
+    public Result<Integer> count(@RequestAttribute("userId") Long userId){
         return Result.ok(favoriteService.count(userId));
     }
 }
